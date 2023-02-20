@@ -23,14 +23,13 @@ jobs:
       - name: Restore
         run: nuget restore
 
+      - name: Setup VSTest Path
+        uses: darenm/Setup-VSTest@v1.2
+
       - name: Build test projects
         run: |
              Get-ChildItem -Include *.csproj -Recurse -Path .\test\ | 
              ForEach-Object -Process { msbuild /p:Configuration=Release,RestorePackages=false $_.FullName }
 
-      - name: Run tests
-        uses: microsoft/vstest-action@v1.0.0
-        with:
-           testAssembly: '**\bin\Release\*Test.dll'
-           searchFolder:  .\test\
-           runInParallel: true
+      - name: VSTest
+        run: vstest.console.exe test\ProjectUnitTest\bin\Release\ProjectUnitTest.dll
