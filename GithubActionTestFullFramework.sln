@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubActionTestFullFramewo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectUnitTest", "test\ProjectUnitTest\ProjectUnitTest.csproj", "{B8DE32C1-D058-4458-A287-DDA384059C52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project2UnitTest", "test\Project2UnitTest\Project2UnitTest.csproj", "{E81B4878-7CCD-4049-991E-CA5B44AF1B7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +25,17 @@ Global
 		{B8DE32C1-D058-4458-A287-DDA384059C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8DE32C1-D058-4458-A287-DDA384059C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8DE32C1-D058-4458-A287-DDA384059C52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E81B4878-7CCD-4049-991E-CA5B44AF1B7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E81B4878-7CCD-4049-991E-CA5B44AF1B7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E81B4878-7CCD-4049-991E-CA5B44AF1B7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E81B4878-7CCD-4049-991E-CA5B44AF1B7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{B8DE32C1-D058-4458-A287-DDA384059C52} = {6D08DEBF-4AA8-4CEA-B392-D683E57C5FF5}
+		{E81B4878-7CCD-4049-991E-CA5B44AF1B7F} = {6D08DEBF-4AA8-4CEA-B392-D683E57C5FF5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F5DDDBA-0FD9-4CAC-83DD-4D46FB1C2464}

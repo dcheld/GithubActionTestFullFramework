@@ -26,7 +26,12 @@ jobs:
       - name: Build test projects
         run: |
              Get-ChildItem -Include *.csproj -Recurse -Path .\test\ | 
-             ForEach-Object -Process { msbuild /p:Configuration=Release,RestorePackages=false $_.FullName }
+             ForEach-Object -ErrorAction Stop -Process { 
+                msbuild /p:Configuration=Release,RestorePackages=false $_.FullName 
+                if ($? -eq $false) {
+                    throw "Build error in: $_";
+                }
+             }
 
       - name: Run tests
         uses: microsoft/vstest-action@v1.0.0
