@@ -1,21 +1,13 @@
 name: SonarCloud
 on:
-  workflow_call:
-    inputs:
-      config-path:
-        required: true
-        type: string
-    secrets:
-      token:
-        required: true
+  push:
+    branches:
+      - main
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  Build:
-    uses: ./.github/workflows/build.yml
-
   Sonar:
-    name: Build and analyze
+    name: Analyze
     runs-on: windows-latest
     steps:
       - name: Setup MSBuild
@@ -50,6 +42,19 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Cache Code Coverage
+        id: cache-coverage
+        uses: actions/cache@v3
+        with:
+          path: .\.tool\coverage
+          key: ${{ runner.os }}-coverage
+          restore-keys: ${{ runner.os }}-coverage
+      - name: Install Code Coverage
+        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
+        shell: powershell
+        run: |
+          New-Item -Path .\.tool\coverage -ItemType Directory
+          dotnet tool update dotnet-coverage --tool-path .\.tool\coverage
       - name: Restore
         run: nuget restore
       - name: Build and analyze
@@ -58,6 +63,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"github-action-test-full-framework" /o:"dcheld-org" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths=\TestResults\*.trx
-          msbuild /t:rebuild /p:RestorePackages=false
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"github-action-test-full-framework" /o:"dcheld-org" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          dotnet build --no-incremental
+          dotnet test --collect "Code Coverage"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
