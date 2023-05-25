@@ -1,6 +1,6 @@
 ﻿on:  
   push:
-name: Teste
+name: Build
 jobs:
   Build_Deploy:
     runs-on: windows-latest
@@ -40,4 +40,5 @@ jobs:
            testAssembly: '**\bin\Release\*Test.dll'
            searchFolder:  .\test\
            runInParallel: true
+           otherConsoleOptions: '/collect:"Code Coverage;Format=Cobertura"'  # <<<< this is the important bit
            codeCoverageEnabled: true

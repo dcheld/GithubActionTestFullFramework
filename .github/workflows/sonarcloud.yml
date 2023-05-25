@@ -1,12 +1,20 @@
 name: SonarCloud
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      token:
+        required: true
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
-  build:
+  Build:
+    uses: ./.github/workflows/build.yml
+
+  Sonar:
     name: Build and analyze
     runs-on: windows-latest
     steps:
