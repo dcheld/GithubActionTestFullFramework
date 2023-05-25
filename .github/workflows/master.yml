@@ -1,4 +1,5 @@
-﻿on: [push]
+﻿on:  
+  push:
 name: Teste
 jobs:
   Build_Deploy:
@@ -39,3 +40,4 @@ jobs:
            testAssembly: '**\bin\Release\*Test.dll'
            searchFolder:  .\test\
            runInParallel: true
+           codeCoverageEnabled: true
